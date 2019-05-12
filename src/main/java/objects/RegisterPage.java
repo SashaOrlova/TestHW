@@ -22,12 +22,12 @@ public class RegisterPage {
         button = new ButtonElement(driver, "id_l.R.register");
     }
 
-    public void register(String userName) {
-        name.setText(userName);
-        mail.setText(userName + "@mail.ru");
-        login.setText(userName);
-        password.setText(userName);
-        confirmPassword.setText(userName);
+    public void register(String name, String mail, String login, String password, String confirmPassword) {
+        this.name.setText(name);
+        this.mail.setText(mail);
+        this.login.setText(login);
+        this.password.setText(password);
+        this.confirmPassword.setText(confirmPassword);
         button.click();
     }
 }

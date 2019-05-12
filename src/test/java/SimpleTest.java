@@ -31,7 +31,7 @@ public class SimpleTest {
     @Test
     public void testRegisterUser(){
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register("testuser0");
+        registerPage.register("test test", "test@mail.ru", "test1", "pass", "pass");
         Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe("http://localhost:8080/registerUserForm")));
         Assert.assertEquals("http://localhost:8080/dashboard", driver.getCurrentUrl());
@@ -40,20 +40,39 @@ public class SimpleTest {
     @Test
     public void testRegisterUserFailTwice(){
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register("testuser9");
+        registerPage.register("test test", "test@mail.ru", "test2", "pass", "pass");
         Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe("http://localhost:8080/registerUserForm")));
         registerPage = new RegisterPage(driver);
-        registerPage.register("testuser9");
+        registerPage.register("test test", "test@mail.ru", "test2", "pass", "pass");
         WebElement element = driver.findElement(By.name("l.R.user_fullName"));
         wait.until(ExpectedConditions.not(ExpectedConditions.stalenessOf(element)));
         Assert.assertNotEquals("http://localhost:8080/dashboard", driver.getCurrentUrl());
     }
 
     @Test
-    public void testRegisterUserFailLanguage(){
+    public void testRegisterUserFailEmpty(){
         RegisterPage registerPage = new RegisterPage(driver);
-        registerPage.register("");
+        registerPage.register("test test", "test@mail.ru", "", "pass", "pass");
+        Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class);
+        WebElement element = driver.findElement(By.name("l.R.user_fullName"));
+        wait.until(ExpectedConditions.not(ExpectedConditions.stalenessOf(element)));
+        Assert.assertEquals("http://localhost:8080/registerUserForm", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void testRegisterUserLanguage(){
+        RegisterPage registerPage = new RegisterPage(driver);
+        registerPage.register("тест тест", "test@mail.ru", "тест", "пароль", "пароль");
+        Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe("http://localhost:8080/registerUserForm")));
+        Assert.assertEquals("http://localhost:8080/dashboard", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void testRegisterUserFailPassword(){
+        RegisterPage registerPage = new RegisterPage(driver);
+        registerPage.register("test test", "test@mail.ru", "", "pass1", "pass2");
         Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class);
         WebElement element = driver.findElement(By.name("l.R.user_fullName"));
         wait.until(ExpectedConditions.not(ExpectedConditions.stalenessOf(element)));
