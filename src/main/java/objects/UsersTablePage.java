@@ -19,9 +19,11 @@ public class UsersTablePage {
     private ButtonElement find;
     private ButtonElement clear;
 
-    private List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<>();
 
     public UsersTablePage(WebDriver driver) {
+        driver.navigate().to("http://localhost:8080/users");
+        driver.findElement(By.name("l.U.queryText"));
         search = new TextElement(driver, "l.U.queryText");
         group = new TextElement(driver, "l.U.groupFilter");
         role = new TextElement(driver, "l.U.roleFilter");

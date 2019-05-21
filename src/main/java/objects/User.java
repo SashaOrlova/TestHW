@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class User {
-    WebElement userLink;
-    String name;
-    String mail;
-    List<WebElement> groups;
-    String lastVisit;
-    List<WebElement> actions;
+    public WebElement userLink;
+    public String name;
+    public String mail;
+    public List<WebElement> groups;
+    public String lastVisit;
+    public List<WebElement> actions;
 
     public User(WebElement parentElement) {
         List<WebElement> rows = parentElement.findElements(By.tagName("td"));

@@ -14,4 +14,7 @@ public class TextElement {
     public void setText(String text) {
         element.sendKeys(text);
     }
+    public String getText() {
+        return element.getAttribute("value");
+    }
 }
